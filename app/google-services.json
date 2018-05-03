@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "18899614795",
+    "firebase_url": "https://fitduel-c1abd.firebaseio.com",
+    "project_id": "fitduel-c1abd",
+    "storage_bucket": "fitduel-c1abd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18899614795:android:97221595b16d71e3",
+        "android_client_info": {
+          "package_name": "com.fitness.fitduel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18899614795-hdo3evdab4g4cbphg3f4q9p2ldlk2vvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitness.fitduel",
+            "certificate_hash": "4f07a818759f1474d3f18d89515e504914d5b354"
+          }
+        },
+        {
+          "client_id": "18899614795-4ovq9tjhehf9jlf7a6s37jle97kdjr5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALzaYuSYr6ZZnqXPrXHVHpscFv4RjHtMY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18899614795-4ovq9tjhehf9jlf7a6s37jle97kdjr5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
