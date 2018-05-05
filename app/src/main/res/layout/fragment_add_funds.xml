@@ -73,7 +73,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/rounded_button"
-            android:padding="20dp"
+            android:padding="10dp"
             android:text="@string/select_payment_method" />
 
     </RelativeLayout>

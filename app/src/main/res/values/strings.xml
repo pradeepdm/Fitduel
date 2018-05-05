@@ -13,7 +13,6 @@
     <string name="withdraw_funds">Withdraw Funds</string>
     <string name="exit">Exit</string>
     <string name="divider">divider</string>
-    <string name="email">Email</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -47,4 +46,6 @@
     <string name="user_name">User name</string>
     <string name="info">User Info</string>
     <string name="server_error">Server Error</string>
+    <string name="home_fragment">home fragment</string>
+    <string name="email">Email</string>
 </resources>
