@@ -46,7 +46,7 @@
         </activity>
         <activity android:name=".ChallengesActivity" />
         <activity android:name=".UserLoginActivity" />
-        <activity android:name=".PaymentTransactionActivity"></activity>
+        <activity android:name=".PaymentTransactionActivity" />
     </application>
 
 </manifest>

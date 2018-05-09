@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fitness.model.FundsModel;
+import com.fitness.controller.UserTransactionHandler;
+import com.fitness.model.UserInfoModel;
 import com.fitness.module.RetrofitFactory;
 import com.fitness.module.Utils;
 import com.fitness.service.StripeService;
@@ -53,9 +54,7 @@ public class AccountFragment extends Fragment {
         addFundsButton = accountFragment.findViewById(R.id.add_funds);
         withdrawFunds = accountFragment.findViewById(R.id.withdraw_funds);
         currentBalance = accountFragment.findViewById(R.id.current_funds);
-
-        if (FundsModel.getInstance() != null)
-            currentBalance.setText(String.format(FundsModel.currentFunds.toString(), true));
+        currentBalance.setText(String.format(UserInfoModel.instance().getCurrentBalance(), true));
 
         addFundsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +78,13 @@ public class AccountFragment extends Fragment {
     }
 
     private void refundToTheCustomerAccount() {
-        Map<String, ?> transactions = FundsModel.instance(null).withDrawFunds();
+        Map<String, ?> transactions = UserTransactionHandler.withDrawFunds();
         for (Map.Entry<String, ?> entry : transactions.entrySet()) {
             doRefund(entry.getKey());
         }
 
         Intent intent = new Intent(getContext(), ChallengesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -103,12 +103,14 @@ public class AccountFragment extends Fragment {
                                        @NonNull Response<ResponseBody> response) {
 
                     Log.i(TAG, "Refund with " + key + " successful");
+                    UserTransactionHandler.resetUserTransactions();
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> paramOne, @NonNull Throwable t) {
-                    t.printStackTrace();
                     Utils.displayError(t.getMessage(), getContext());
+                    t.printStackTrace();
+                    Log.e(TAG, t.getLocalizedMessage());
                 }
             });
 

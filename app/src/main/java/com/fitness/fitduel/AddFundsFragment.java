@@ -100,11 +100,12 @@ public class AddFundsFragment extends Fragment implements View.OnClickListener {
 
     private void resetCurrentSelectedValue(TextView value) {
 
-        if (currentSelectedValue != null)
-            currentSelectedValue.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        if (currentSelectedValue != null) {
+            currentSelectedValue.setBackground(getResources().getDrawable(R.drawable.rounded_textview));
+        }
         else
             currentSelectedValue = value;
 
-        value.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        value.setBackground(getResources().getDrawable(R.drawable.rounded_textview_primary));
     }
 }
