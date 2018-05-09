@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitness.controller.ErrorDialogHandler;
+import com.fitness.fitduel.PaymentTransactionActivity;
+import com.fitness.fitduel.R;
 
 
 /**

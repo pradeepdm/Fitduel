@@ -20,7 +20,8 @@ import java.io.InputStream;
 /**
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class
+ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
     // private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -94,5 +95,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 }
+
 
 

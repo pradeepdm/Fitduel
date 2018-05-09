@@ -47,6 +47,10 @@
         <activity android:name=".ChallengesActivity" />
         <activity android:name=".UserLoginActivity" />
         <activity android:name=".PaymentTransactionActivity" />
+
+        <service android:name="com.fitness.controller.AccelerometerService" />
+
+        <activity android:name=".StartChallengeActivity"></activity>
     </application>
 
 </manifest>
