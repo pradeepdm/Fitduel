@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fitness.controller.UserTransactionHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,7 +34,7 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     public void btnUserLogin_Click(View v) {
-        final ProgressDialog progressDialog = ProgressDialog.show(UserLoginActivity.this, getString(R.string.please_wait), "Proccessing...", true);
+        final ProgressDialog progressDialog = ProgressDialog.show(UserLoginActivity.this, getString(R.string.please_wait), getString(R.string.processing), true);
 
         (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -42,11 +43,13 @@ public class UserLoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
+
                             Toast.makeText(UserLoginActivity.this, R.string.success_login, Toast.LENGTH_LONG).show();
                             Intent i = new Intent(UserLoginActivity.this, ChallengesActivity.class);
+                            UserTransactionHandler.initializeUserInfoModel(firebaseAuth.getCurrentUser());
                             i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-
                             startActivity(i);
+
                         } else {
                             Log.e("UserLoginActivity", task.getException().toString());
                             Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

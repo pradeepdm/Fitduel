@@ -18,6 +18,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.fitness.controller.UserTransactionHandler;
+import com.fitness.model.UserInfoModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -33,11 +35,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private static final String TAG = "UserRegistration";
     private static final String EMAIL = "email";
     private CallbackManager callbackManager;
+    private EditText userName;
     private EditText txtEmailAddress;
     private EditText txtPassword;
     private Button facebookLogin;
-    private TextView loginLink;
-    private Button createAccount;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -45,42 +46,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_user);
         initializeControls();
-
-
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                facebookLogin.setEnabled(false);
-
-                LoginManager.getInstance().logInWithReadPermissions(
-                        UserRegistrationActivity.this,
-                        Arrays.asList(EMAIL, "public_profile"));
-                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        Log.d(TAG, "On Success:" + loginResult);
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // App code
-                        Log.d(TAG, "User canceled login using Facebook");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                        Log.d(TAG, "Error logging in using Facebook account");
-                    }
-
-                });
-            }
-        });
     }
 
     private void initializeControls() {
@@ -89,10 +54,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);*/
         callbackManager = CallbackManager.Factory.create();
         facebookLogin = findViewById(R.id.login_button);
-        txtEmailAddress = findViewById(R.id.input_email);
-        txtPassword = findViewById(R.id.input_password);
-        loginLink = findViewById(R.id.link_login);
-        createAccount = findViewById(R.id.create_account);
+
+        txtEmailAddress = findViewById(R.id.email);
+        userName = findViewById(R.id.name);
+        txtPassword = findViewById(R.id.password);
+        TextView loginLink = findViewById(R.id.link_login);
+        Button createAccount = findViewById(R.id.create_account);
 
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,35 +82,95 @@ public class UserRegistrationActivity extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 registerUser(v);
+            }
+        });
+
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                facebookLogin.setEnabled(false);
+
+                LoginManager.getInstance().logInWithReadPermissions(
+                        UserRegistrationActivity.this,
+                        Arrays.asList(EMAIL, "public_profile"));
+
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        Log.d(TAG, "On Success:" + loginResult);
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG, "User canceled login using Facebook");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Log.d(TAG, "Error logging in using Facebook account");
+                    }
+
+                });
             }
         });
     }
 
     @Override
     public void onStart() {
+
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            updateUI();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            UserTransactionHandler.initializeUserInfoModel(firebaseUser);
         }
     }
 
-    private void updateUI() {
-        // display Challenges
-        Intent i = new Intent(
-                UserRegistrationActivity.this,
-                ChallengesActivity.class
-        );
 
-        startActivity(i);
+    private void updateUserInfoModel(boolean isFacebook) {
+
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (UserInfoModel.instance().getName() == null
+                || UserInfoModel.instance().getName().equals("")) {
+
+            initializeUserInfoModel(user, isFacebook);
+            UserTransactionHandler.storeUserProfileToFirebase();
+        }
+    }
+
+    private void startChallenge() {
+        // display Challenges
+        Intent intent = new Intent(UserRegistrationActivity.this, ChallengesActivity.class);
+        startActivity(intent);
+    }
+
+    private void initializeUserInfoModel(FirebaseUser user, boolean isFacebook) {
+
+        if (isFacebook) {
+            if (user.getDisplayName() != null) {
+                UserInfoModel.instance().setName(user.getDisplayName());
+            }
+            UserInfoModel.instance().setEmail(user.getEmail());
+            UserInfoModel.instance().setProfilePic(user.getPhotoUrl().toString());
+        } else {
+
+            UserInfoModel.instance().setName(userName.getText().toString());
+            UserInfoModel.instance().setEmail(txtEmailAddress.getText().toString());
+        }
+
+        UserInfoModel.instance().setUserID(user.getUid());
     }
 
 
     private void handleFacebookAccessToken(AccessToken token) {
-
 
         final ProgressDialog progressDialog = ProgressDialog.show(UserRegistrationActivity.this,
                 "Please wait...",
@@ -165,8 +192,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            updateUI();
+                            updateUserInfoModel(true);
+                            startChallenge();
 
 
                         } else {
@@ -190,8 +217,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     public void registerUser(View v) {
 
         final ProgressDialog progressDialog = ProgressDialog.show(UserRegistrationActivity.this,
-                "Please wait...",
-                "Processing...",
+                getString(R.string.please_wait),
+                getString(R.string.processing),
                 true
         );
 
@@ -207,14 +234,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(
                                     UserRegistrationActivity.this,
-                                    "Registration successful",
+                                    R.string.success,
                                     Toast.LENGTH_LONG).
                                     show();
 
-                            updateUI();
+                            updateUserInfoModel(false);
+                            startChallenge();
 
                         } else {
-                            Log.e("ERROR", task.getException().toString());
+                            Log.e(TAG, task.getException().toString());
                             Toast.makeText(UserRegistrationActivity.this,
                                     task.getException().getMessage(),
                                     Toast.LENGTH_LONG)
@@ -222,5 +250,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

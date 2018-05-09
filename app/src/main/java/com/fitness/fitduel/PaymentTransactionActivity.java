@@ -10,8 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.fitness.controller.ErrorDialogHandler;
-import com.fitness.dialog.ProgressDialogFragment;
-import com.fitness.model.FundsModel;
+import com.fitness.controller.UserTransactionHandler;
 import com.fitness.module.RetrofitFactory;
 import com.fitness.module.Utils;
 import com.fitness.service.StripeService;
@@ -31,7 +30,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.subscriptions.CompositeSubscription;
 
 public class PaymentTransactionActivity extends AppCompatActivity {
 
@@ -41,8 +39,6 @@ public class PaymentTransactionActivity extends AppCompatActivity {
     private final int TO_DOLLARS = 100;
     private CardInputWidget cardInputWidget;
     private Button goButton;
-    private CompositeSubscription mCompositeSubscription;
-    private ProgressDialogFragment mProgressDialogFragment;
     private Integer amountToAdd;
     private ErrorDialogHandler errorDialogHandler;
 
@@ -108,51 +104,6 @@ public class PaymentTransactionActivity extends AppCompatActivity {
     private void addFundsTransaction(Token token) {
 
         final StripeService service = RetrofitFactory.getInstance().create(StripeService.class);
-       /* try {
-
-            Observable<ResponseBody> stripeResponse = service.charge(createParamsForCharge(amountToAdd, token.getId()));
-            final FragmentManager fragmentManager = getSupportFragmentManager();
-
-            mCompositeSubscription.add(stripeResponse
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe(
-                            new Action0() {
-                                @Override
-                                public void call() {
-                                    if (mProgressDialogFragment != null &&
-                                            !mProgressDialogFragment.isAdded())
-                                        mProgressDialogFragment.show(fragmentManager, "progress");
-                                }
-                            })
-                    .doOnUnsubscribe(
-                            new Action0() {
-                                @Override
-                                public void call() {
-                                    if (mProgressDialogFragment != null
-                                            && mProgressDialogFragment.isVisible()) {
-                                        mProgressDialogFragment.dismiss();
-                                    }
-                                }
-                            })
-                    .subscribe(
-                            new Action1<ResponseBody>() {
-                                @Override
-                                public void call(ResponseBody s) {
-                                    finishCharge();
-
-                                }
-                            },
-                            new Action1<Throwable>() {
-                                @Override
-                                public void call(Throwable throwable) {
-                                    displayError(throwable.getLocalizedMessage());
-                                }
-                            }));
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getLocalizedMessage());
-        }*/
         try {
 
             Call<ResponseBody> call = service.charge(createParamsForCharge(amountToAdd, token.getId()));
@@ -194,10 +145,11 @@ public class PaymentTransactionActivity extends AppCompatActivity {
             Log.e(TAG, e.getLocalizedMessage());
         }
 
-        FundsModel.instance(getApplicationContext()).addFunds(chargeInstance.getId(), chargeInstance.getAmount());
+        UserTransactionHandler.addFunds(chargeInstance.getId(), chargeInstance.getAmount());
         Intent intent = new Intent(this, ChallengesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         Log.i(TAG, "Funds successfully added to the account");
-        Toast.makeText(this, "Funds successfully added to the account", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.successfully_added), Toast.LENGTH_SHORT).show();
     }
 }

@@ -55,6 +55,7 @@
                     android:id="@+id/value_100"
                     style="@style/tableRowStyle"
                     android:layout_column="3"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/rounded_textview"
                     android:text="@string/value_100" />
 

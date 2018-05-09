@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 public final class Utils {
 
     public static void displayError(String errorMessage, Context context) {
+
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Error");
         alertDialog.setMessage(errorMessage);

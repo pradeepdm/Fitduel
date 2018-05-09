@@ -3,6 +3,7 @@ package com.fitness.dialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
 public class ProgressDialogFragment extends DialogFragment {
@@ -21,6 +22,7 @@ public class ProgressDialogFragment extends DialogFragment {
         return fragment;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         int msgId = getArguments().getInt("msgId");

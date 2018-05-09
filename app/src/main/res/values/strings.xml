@@ -11,7 +11,7 @@
     <string name="balance_amount">$0.0</string>
     <string name="add_funds">Add Funds</string>
     <string name="withdraw_funds">Withdraw Funds</string>
-    <string name="exit">Exit</string>
+    <string name="exit">EXIT</string>
     <string name="divider">divider</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -48,4 +48,14 @@
     <string name="server_error">Server Error</string>
     <string name="home_fragment">home fragment</string>
     <string name="email">Email</string>
+    <string name="phone_number">Phone number</string>
+    <string name="name">Name</string>
+    <string name="exit_msg">Are you sure you want to exit?</string>
+    <string name="cancel">CANCEL</string>
+    <string name="success">Registration successful</string>
+    <string name="contact">Profile Information</string>
+    <string name="alert">Alert</string>
+    <string name="successfully_added">Funds successfully added to the account</string>
+    <string name="withdraw_success">Fund withdraw successful</string>
+    <string name="processing">Proccessing...</string>
 </resources>

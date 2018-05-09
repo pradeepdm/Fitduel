@@ -1,11 +1,14 @@
 package com.fitness.fitduel;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ChallengesActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationItemView;
-    private FrameLayout mainFrameLayout;
     private HomeFragment homeFragment;
     private AccountFragment accountFragment;
     private ProfileFragment profileFragment;
@@ -23,7 +25,7 @@ public class ChallengesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
-        mainFrameLayout = findViewById(R.id.main_frame);
+        FrameLayout mainFrameLayout = findViewById(R.id.main_frame);
         bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.main_nav);
 
         InitializeFragments();
@@ -80,4 +82,31 @@ public class ChallengesActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setTitle(getString(R.string.alert));
+        dialog.setContentView(R.layout.alert_dialog);
+        Button exit = dialog.findViewById(R.id.exit);
+        Button cancel = dialog.findViewById(R.id.resume);
+        dialog.show();
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
+
 }
