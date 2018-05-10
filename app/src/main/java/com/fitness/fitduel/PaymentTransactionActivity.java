@@ -1,5 +1,6 @@
 package com.fitness.fitduel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,6 +42,7 @@ public class PaymentTransactionActivity extends AppCompatActivity {
     private Button goButton;
     private Integer amountToAdd;
     private ErrorDialogHandler errorDialogHandler;
+    private ProgressDialog progressDialog;
 
     public PaymentTransactionActivity() {
 
@@ -61,11 +63,21 @@ public class PaymentTransactionActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog = ProgressDialog.
+                        show(PaymentTransactionActivity.this,
+                                getString(R.string.please_wait),
+                                getString(R.string.processing),
+                                true
+                        );
+
                 Card cardToSave = cardInputWidget.getCard();
                 if (cardToSave == null) {
+
+                    progressDialog.dismiss();
                     Toast.makeText(
                             PaymentTransactionActivity.this,
-                            "Please enter the card details",
+                            getString(R.string.card_details),
                             Toast.LENGTH_SHORT
                     ).show();
                 } else {
@@ -84,6 +96,8 @@ public class PaymentTransactionActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onError(Exception error) {
+
+                                        progressDialog.dismiss();
                                         Log.e(TAG, error.getMessage());
                                         Utils.displayError(error.getLocalizedMessage(), getApplicationContext());
                                     }
@@ -117,7 +131,8 @@ public class PaymentTransactionActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> paramOne, @NonNull Throwable t) {
                     t.printStackTrace();
-                    Utils.displayError(t.getMessage(), getApplicationContext());
+                    progressDialog.dismiss();
+                    Utils.displayError(t.getMessage(), PaymentTransactionActivity.this);
                 }
             });
 
@@ -146,10 +161,11 @@ public class PaymentTransactionActivity extends AppCompatActivity {
         }
 
         UserTransactionHandler.addFunds(chargeInstance.getId(), chargeInstance.getAmount());
+        progressDialog.dismiss();
         Intent intent = new Intent(this, ChallengesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         Log.i(TAG, "Funds successfully added to the account");
-        Toast.makeText(this, getResources().getString(R.string.successfully_added), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.successfully_added), Toast.LENGTH_SHORT).show();
     }
 }

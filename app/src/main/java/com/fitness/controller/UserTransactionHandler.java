@@ -20,13 +20,23 @@ public class UserTransactionHandler {
     private static String USERPROFILE = "UserProfile";
 
     public static void addFunds(String chargeId, Long funds) {
-        UserInfoModel.instance().setCurrentBalance(String.valueOf(funds / 100));
+
+        String currentBalance = UserInfoModel.instance().getCurrentBalance();
+
+        if (funds != 0) {
+            funds = funds / 100;
+            Long newBalance = Integer.valueOf(currentBalance) + funds;
+            UserInfoModel.instance().setCurrentBalance(String.valueOf(newBalance));
+        } else {
+            UserInfoModel.instance().setCurrentBalance(String.valueOf(funds));
+        }
 
         UserInfoModel.instance().addTransaction(chargeId, funds);
         storeUserProfileToFirebase();
     }
 
     public static void storeUserProfileToFirebase() {
+
         databaseReference.child(USERPROFILE).
                 child(UserInfoModel.instance().getUserID()).
                 setValue(UserInfoModel.instance());

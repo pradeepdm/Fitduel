@@ -57,5 +57,6 @@
     <string name="alert">Alert</string>
     <string name="successfully_added">Funds successfully added to the account</string>
     <string name="withdraw_success">Fund withdraw successful</string>
-    <string name="processing">Proccessing...</string>
+    <string name="processing">Processing...</string>
+    <string name="card_details">Please enter the card details</string>
 </resources>

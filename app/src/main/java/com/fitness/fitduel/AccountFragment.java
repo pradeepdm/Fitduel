@@ -1,5 +1,6 @@
 package com.fitness.fitduel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,6 +36,7 @@ public class AccountFragment extends Fragment {
     private static final String TAG = "AccountFragment";
     Button addFundsButton, withdrawFunds;
     private TextView currentBalance;
+    private ProgressDialog progressDialog;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -79,10 +81,18 @@ public class AccountFragment extends Fragment {
 
     private void refundToTheCustomerAccount() {
         Map<String, ?> transactions = UserTransactionHandler.withDrawFunds();
+        progressDialog = ProgressDialog.
+                show(getActivity(),
+                        getString(R.string.please_wait),
+                        getString(R.string.processing),
+                        true
+                );
+
         for (Map.Entry<String, ?> entry : transactions.entrySet()) {
             doRefund(entry.getKey());
         }
 
+        progressDialog.dismiss();
         Intent intent = new Intent(getContext(), ChallengesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -108,9 +118,16 @@ public class AccountFragment extends Fragment {
 
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> paramOne, @NonNull Throwable t) {
-                    Utils.displayError(t.getMessage(), getContext());
-                    t.printStackTrace();
-                    Log.e(TAG, t.getLocalizedMessage());
+                    try {
+                        progressDialog.dismiss();
+                        Utils.displayError(t.getMessage(), getContext());
+                        t.printStackTrace();
+                        Log.e(TAG, t.getLocalizedMessage());
+                    } catch (Exception ex) {
+                        Log.e(TAG, ex.getLocalizedMessage());
+                    }
+
+
                 }
             });
 

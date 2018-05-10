@@ -67,8 +67,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 final ProgressDialog progressDialog = ProgressDialog.
                         show(UserRegistrationActivity.this,
-                                "Please wait...",
-                                "Proccessing...",
+                                getString(R.string.please_wait),
+                                getString(R.string.processing),
                                 true
                         );
 
@@ -173,8 +173,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private void handleFacebookAccessToken(AccessToken token) {
 
         final ProgressDialog progressDialog = ProgressDialog.show(UserRegistrationActivity.this,
-                "Please wait...",
-                "Processing...",
+                getString(R.string.please_wait),
+                getString(R.string.processing),
                 true
         );
 
