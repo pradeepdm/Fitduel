@@ -50,6 +50,9 @@
   - App should be running in the background inorder for the Accelerometer service to be alive and keep track of the User movements.
 
 ## Screenshots
+
+  ![Stripe-payments](stripe-payments.png)
+
   ![Entry](Entry.jpg)
 
   ![login](login.jpg)
