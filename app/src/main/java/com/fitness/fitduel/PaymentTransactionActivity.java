@@ -32,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class PaymentTransactionActivity extends AppCompatActivity {
 
     public static final String PUBLISHABLE_KEY =
@@ -52,7 +53,7 @@ public class PaymentTransactionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_input);
-        cardInputWidget = (CardInputWidget) findViewById(R.id.card_input_widget);
+        cardInputWidget = findViewById(R.id.card_input_widget);
         goButton = findViewById(R.id.go);
 
         Intent intent = getIntent();

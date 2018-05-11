@@ -31,6 +31,7 @@ import retrofit2.Response;
 /**
  * create an instance of this fragment.
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class AccountFragment extends Fragment {
 
     private static final String TAG = "AccountFragment";

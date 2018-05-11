@@ -44,30 +44,25 @@
             android:id="@+id/rulesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="3sp"
             android:padding="3dp"
-            android:lineSpacingExtra="2sp"
             android:textAlignment="viewStart"
             android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
     </ScrollView>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/startChallengeButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:background="@color/com_facebook_messenger_blue"
+        android:padding="10dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/start_challenge"
         android:textAlignment="center"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/stopChallengeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:background="@color/com_facebook_messenger_blue"
-        android:text="@string/stop_challenge" />
+        android:textAllCaps="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 
 </LinearLayout>

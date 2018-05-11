@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -20,6 +21,7 @@ import com.fitness.controller.AccelerometerService;
 import com.fitness.controller.StepListener;
 import com.fitness.fitduel.R;
 import com.fitness.fitduel.StartChallengeActivity;
+import com.fitness.module.Utils;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -32,8 +34,18 @@ public class HomeFragment extends Fragment implements StepListener {
     private TextView tvSteps;
     private Button btnStart;
     private Button btnStop;
+    private CountDownTimer counterTimer;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    private static boolean FLAG_FROM_SERVICE = false;
+    private static final String TAG = "FLAG";
+    private static final String STEPS_COUNT = "STEPS";
+    private static Long currentSteps;
+    private static String winMessage = "Congrats!!You have won";
+    private static String lossMessage = "Oops!!You lost, better luck next time";
+    //time in seconds
+    private static int TIME_TO_STOP = 15;
     NotificationManager notificationManager;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -42,7 +54,6 @@ public class HomeFragment extends Fragment implements StepListener {
     @Override
     public void onResume() {
         super.onResume();
-        tvSteps.setText(String.valueOf(AccelerometerService.getCurrentStatus()));
     }
 
     @Override
@@ -54,10 +65,11 @@ public class HomeFragment extends Fragment implements StepListener {
                 container,
                 false
         );
-        tvSteps = (TextView) homeFragment.findViewById(R.id.tv_steps);
-        btnStart = (Button) homeFragment.findViewById(R.id.startButton);
+        btnStart = homeFragment.findViewById(R.id.startButton);
         return homeFragment;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -68,56 +80,19 @@ public class HomeFragment extends Fragment implements StepListener {
             @Override
             public void onClick(View view) {
 
-//                Intent intent = new Intent(getActivity(), AccelerometerService.class);
-//                getActivity().startService(intent);
-//                Toast.makeText(getContext(),"Challenge Started",Toast.LENGTH_SHORT).show();
-                // showNotification();
                 Intent start = new Intent(getActivity(), StartChallengeActivity.class);
                 startActivity(start);
+
             }
         });
 
 
-//        btnStop.setOnClickListener(view -> {
-//
-////            Intent intent = new Intent(getActivity(), AccelerometerService.class);
-////            getActivity().stopService(intent);
-////            stopNotification();
-//        });
-
     }
 
-
-
-//    private void showNotification() {
-//
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getActivity());
-//        notificationBuilder.setContentTitle("FitDuel");
-//        notificationBuilder.setContentText("Challenge  is running in the background.");
-//        notificationBuilder.setSmallIcon(R.drawable.messenger_bubble_large_blue);
-//        notificationBuilder.setColor(Color.parseColor("#6600cc"));
-//        int colorLED = Color.argb(255, 0, 255, 0);
-//        notificationBuilder.setLights(colorLED, 500, 500);
-//        // To  make sure that the Notification LED is triggered.
-//        notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-//        notificationBuilder.setOngoing(true);
-//
-//        //Intent resultIntent = new Intent(this, MainActivity.class);
-//        PendingIntent resultPendingIntent = PendingIntent.getActivity(getContext(),0,new Intent(),0);
-//        notificationBuilder.setContentIntent(resultPendingIntent);
-//        notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0, notificationBuilder.build());
-//
-//    }
-//
-//    private void stopNotification() {
-//        notificationManager.cancel(0);
-//    }
 
     @Override
     public void step(Long numSteps) {
         numSteps++;
-        tvSteps.setText(String.format("%s%d", TEXT_NUM_STEPS, numSteps));
     }
+
 }

@@ -28,34 +28,45 @@ public class UserLoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-        txtEmailLogin = (EditText) findViewById(R.id.input_email);
-        txtPwd = (EditText) findViewById(R.id.input_password);
+        txtEmailLogin = findViewById(R.id.input_email);
+        txtPwd = findViewById(R.id.input_password);
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void btnUserLogin_Click(View v) {
-        final ProgressDialog progressDialog = ProgressDialog.show(UserLoginActivity.this, getString(R.string.please_wait), getString(R.string.processing), true);
+        if(txtEmailLogin.getText().toString() == null ||  txtEmailLogin.getText().toString().equals("") ){
+            Toast.makeText(this,"Enter Email",Toast.LENGTH_LONG).show();
+        }
+        else if(txtPwd.getText().toString() == null ||  txtPwd.getText().toString().equals("") ){
+            Toast.makeText(this,"Enter Password",Toast.LENGTH_LONG).show();
 
-        (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()))
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+        }
+        else {
+            final ProgressDialog progressDialog = ProgressDialog.show(UserLoginActivity.this, getString(R.string.please_wait), getString(R.string.processing), true);
 
-                        if (task.isSuccessful()) {
+            (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()))
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
 
-                            Toast.makeText(UserLoginActivity.this, R.string.success_login, Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(UserLoginActivity.this, ChallengesActivity.class);
-                            UserTransactionHandler.initializeUserInfoModel(firebaseAuth.getCurrentUser());
-                            i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                            startActivity(i);
+                            if (task.isSuccessful()) {
 
-                        } else {
-                            Log.e("UserLoginActivity", task.getException().toString());
-                            Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserLoginActivity.this, R.string.success_login, Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(UserLoginActivity.this, ChallengesActivity.class);
+                                UserTransactionHandler.initializeUserInfoModel(firebaseAuth.getCurrentUser());
+                                i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                startActivity(i);
 
+                            } else {
+                                Log.e("UserLoginActivity", task.getException().toString());
+                                Toast.makeText(UserLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                            }
                         }
-                    }
-                });
+                    });
+        }
+
+
     }
 }

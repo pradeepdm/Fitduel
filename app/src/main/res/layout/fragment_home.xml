@@ -4,81 +4,92 @@
     android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fitness.fitduel.HomeFragment">
+    tools:context="com.fitness.fitduel.HomeFragment"
+    tools:layout_editor_absoluteY="81dp">
 
     <View
         android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="186dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/startButton">
 
     </View>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="201dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="14dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/com_facebook_button_background"
+        android:layout_marginTop="196dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/get_fit_now"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view3"
-        app:layout_constraintStart_toEndOf="@+id/steps"
-        app:layout_constraintTop_toBottomOf="@+id/steps" />
-
-    <TextView
-        android:id="@+id/tv_steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="126dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/nameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/nameLabel"
-        android:textColor="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/challengeNameView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/challengeNameView" />
 
     <TextView
         android:id="@+id/challengeNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="16dp"
-        android:text="@string/nameValue"
-        android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintStart_toEndOf="@+id/nameLabel"
+        android:fontFamily="cursive"
+        android:text="@string/fitness_showdown"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/startTimeValue"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/startTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_time"
+        android:textColor="@android:color/black"
+        app:layout_constraintBaseline_toBaselineOf="@+id/startTimeValue"
+        app:layout_constraintEnd_toStartOf="@+id/feeValueView"
+        app:layout_constraintStart_toStartOf="@+id/feeValueView" />
+
+    <TextView
+        android:id="@+id/startTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/_8_00_am"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintStart_toEndOf="@+id/startTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/challengeNameView" />
 
     <TextView
         android:id="@+id/endTimeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginTop="20dp"
         android:text="@string/end_timeLabel"
         android:textColor="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/endTimeView"
-        app:layout_constraintStart_toStartOf="@+id/awardLabel" />
+        app:layout_constraintEnd_toStartOf="@+id/endTimeValue"
+        app:layout_constraintTop_toBottomOf="@+id/challengeNameView" />
 
     <TextView
-        android:id="@+id/endTimeView"
+        android:id="@+id/endTimeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:text="@string/_8_00_pm"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintStart_toEndOf="@+id/endTimeLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/endTimeLabel"
+        app:layout_constraintStart_toEndOf="@+id/challengeNameView" />
 
     <TextView
         android:id="@+id/feesLabel"
@@ -94,69 +105,73 @@
         android:id="@+id/feeValueView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="28dp"
         android:text="@string/_5"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintBottom_toTopOf="@+id/steps"
-        app:layout_constraintStart_toEndOf="@+id/feesLabel" />
+        app:layout_constraintStart_toEndOf="@+id/feesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/startTimeLabel" />
 
     <TextView
         android:id="@+id/awardLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="28dp"
         android:text="@string/award"
         android:textColor="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/awardValueView"
-        app:layout_constraintStart_toStartOf="@+id/maxFootstepslabel" />
+        app:layout_constraintEnd_toStartOf="@+id/awardValueView"
+        app:layout_constraintTop_toBottomOf="@+id/endTimeLabel" />
 
     <TextView
         android:id="@+id/awardValueView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginEnd="35dp"
         android:text="@string/_10"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintStart_toEndOf="@+id/awardLabel"
-        app:layout_constraintTop_toBottomOf="@+id/endTimeLabel" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/awardLabel"
+        app:layout_constraintEnd_toEndOf="@+id/endTimeValue" />
 
     <TextView
         android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/min_footsteps"
         android:textColor="@android:color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/minStepValue"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/feeValueView"
+        app:layout_constraintStart_toEndOf="@+id/feeValueView" />
 
     <TextView
         android:id="@+id/minStepValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
         android:text="@string/_0"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintStart_toEndOf="@+id/steps"
-        app:layout_constraintTop_toTopOf="@+id/maxFootstepslabel" />
+        app:layout_constraintTop_toBottomOf="@+id/feeValueView" />
 
     <TextView
         android:id="@+id/maxFootstepslabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="37dp"
         android:text="@string/max_footsteps"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/maxStepValue"
-        app:layout_constraintTop_toBottomOf="@+id/awardLabel" />
+        app:layout_constraintEnd_toStartOf="@+id/awardValueView"
+        app:layout_constraintStart_toStartOf="@+id/awardValueView"
+        app:layout_constraintTop_toBottomOf="@+id/awardValueView" />
 
     <TextView
         android:id="@+id/maxStepValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:text="@string/_1000"
+        android:layout_marginStart="1dp"
+        android:text="@string/stepsToWin"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintBaseline_toBaselineOf="@+id/maxFootstepslabel"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/maxFootstepslabel" />
 
 </android.support.constraint.ConstraintLayout>

@@ -19,6 +19,7 @@ import com.fitness.fitduel.R;
 /**
  *
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class AddFundsFragment extends Fragment implements View.OnClickListener {
 
     TextView valueTen, valueTwentyFive, valueFifty, valueHundred;

@@ -15,6 +15,9 @@
     <string name="divider">divider</string>
     <string name="title_activity_login">Sign in</string>
 
+    <!--Steps value to win the challenge-->
+    <string name="stepsToWin">20</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -63,7 +66,7 @@
     <string name="min_footsteps">MIN. FOOTSTEPS:</string>
     <string name="_0">0</string>
     <string name="max_footsteps">MAX. FOOTSTEPS:</string>
-    <string name="_1000">1000</string>
+
     <string name="phone_number">Phone number</string>
     <string name="name">Name</string>
     <string name="exit_msg">Are you sure you want to exit?</string>
@@ -75,4 +78,11 @@
     <string name="withdraw_success">Fund withdraw successful</string>
     <string name="processing">Processing...</string>
     <string name="card_details">Please enter the card details</string>
+    <string name="logout_message">Are you sure you want to logout</string>
+    <string name="logout_button">LOGOUT</string>
+    <string name="start_time">START-TIME:</string>
+    <string name="fitness_showdown">FITNESS SHOWDOWN</string>
+    <string name="_8_00_am">8:00 AM</string>
+    <string name="channel_name">notify</string>
+    <string name="channel_description">fitduel notification</string>
 </resources>

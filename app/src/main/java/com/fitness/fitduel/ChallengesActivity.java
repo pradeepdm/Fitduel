@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class ChallengesActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationItemView;
@@ -26,7 +28,7 @@ public class ChallengesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
         FrameLayout mainFrameLayout = findViewById(R.id.main_frame);
-        bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.main_nav);
+        bottomNavigationItemView = findViewById(R.id.main_nav);
 
         InitializeFragments();
 
@@ -45,13 +47,8 @@ public class ChallengesActivity extends AppCompatActivity {
                         setFragment(profileFragment);
                         return true;
                     case R.id.nav_exit:
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(
-                                ChallengesActivity.this,
-                                UserRegistrationActivity.class
-                        ));
 
-                        finish();
+                        confirmLogout();
                         return true;
                     default:
                         return false;
@@ -61,6 +58,8 @@ public class ChallengesActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void InitializeFragments() {
 
@@ -93,20 +92,39 @@ public class ChallengesActivity extends AppCompatActivity {
         Button cancel = dialog.findViewById(R.id.resume);
         dialog.show();
 
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                finish();
-            }
+        exit.setOnClickListener(view -> {
+            dialog.dismiss();
+            finish();
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
+        cancel.setOnClickListener(view -> dialog.dismiss());
+    }
+
+    private void confirmLogout() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setTitle(getString(R.string.alert));
+        dialog.setContentView(R.layout.alert_dialog);
+        Button logout = dialog.findViewById(R.id.exit);
+        Button cancel = dialog.findViewById(R.id.resume);
+        TextView alertText = dialog.findViewById(R.id.alterText);
+        logout.setText(getString(R.string.logout_button));
+        alertText.setText(getString(R.string.logout_message));
+        dialog.show();
+
+        logout.setOnClickListener((View view) -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(
+                    ChallengesActivity.this,
+                    UserRegistrationActivity.class
+            );
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            dialog.dismiss();
+            finish();
         });
+
+        cancel.setOnClickListener(view -> dialog.dismiss());
     }
 
 }

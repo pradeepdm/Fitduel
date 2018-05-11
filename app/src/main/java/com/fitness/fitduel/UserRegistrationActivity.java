@@ -82,8 +82,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                registerUser(v);
+                if(userName.getText().toString() == null || userName.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Enter Username",Toast.LENGTH_LONG).show();
+                }
+                else if(txtEmailAddress.getText().toString() == null || txtEmailAddress.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_LONG).show();
+                }
+                else if(txtPassword.getText().toString() == null || txtPassword.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Enter Password",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    registerUser(v);
+                }
             }
         });
 
@@ -215,6 +225,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
     public void registerUser(View v) {
+
+
 
         final ProgressDialog progressDialog = ProgressDialog.show(UserRegistrationActivity.this,
                 getString(R.string.please_wait),
