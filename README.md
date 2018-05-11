@@ -48,12 +48,12 @@
   to the user account, the owner of the company(app owner) should have his account registered with Stripe and the users also should get registered formally using the Stripe redirect gateway service.
   Again, to add to that Stripe service needs to go live for this to happen.
   - App should be running in the background inorder for the Accelerometer service to be alive and keep track of the User movements.
- 
-    
 
-
-   
 ## Screenshots
+  ![Entry](Entry.jpg)
+
+  ![login](login.jpg)
+  
 
 ## License
 MIT
