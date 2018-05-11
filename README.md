@@ -54,6 +54,26 @@
 
   ![login](login.jpg)
   
+  ![Challenge](challenge.jpg)
+  
+  ![CardInfo](card-details.jpg)
+  
+  ![profile](fb-profile.jpg)
+  
+  ![Funds](funds.jpg)
+  
+  ![instructions](instructions.jpg)
+  
+  ![logout](logout.jpg)
+    
+  ![profile](profile.jpg)
+    
+  ![progress-update](progress-update.jpg)
+    
+  ![addFunds](add-funds.jpg)
+  
+  ![serverTimeout](server-timeout.jpg)
+  
 
 ## License
 MIT
