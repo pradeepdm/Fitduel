@@ -57,6 +57,10 @@
 
   ![login](login.jpg)
   
+  ![serviceNotification](service-notification.jpg)
+  
+  ![postChallenge](post-challenge.jpg)
+  
   ![Challenge](challenge.jpg)
   
   ![CardInfo](card-details.jpg)
