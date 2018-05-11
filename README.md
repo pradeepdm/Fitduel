@@ -1,7 +1,6 @@
 # Fit Duel
 
-##
-Contributors
+## Contributors
  Pradeep Devarabetta Mallikarjun - 822032361
  Rakshith Ramesh - 822054994
 
