@@ -1,8 +1,7 @@
 # Fit Duel
 
 ## Contributors
- Pradeep Devarabetta Mallikarjun - 822032361
- Rakshith Ramesh - 822054994
+ Pradeep Devarabetta Mallikarjun
 
 ## Synopsis
  This application lets users to take part in the step challenges and the winner will be awarded with the cashprize. 
