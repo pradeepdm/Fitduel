@@ -1,4 +1,4 @@
-# Fit Duel
+# Get Fit
 
 ## Contributors
  Pradeep Devarabetta Mallikarjun
