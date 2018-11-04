@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class PaymentTransactionActivity extends AppCompatActivity {
 
     public static final String PUBLISHABLE_KEY =
-            "pk_test_VFuFSUOngDWxUMBoBmgbkPuu";
+            "test key here";
     private static final String TAG = "PaymentTransaction";
     private final int TO_DOLLARS = 100;
     private CardInputWidget cardInputWidget;
