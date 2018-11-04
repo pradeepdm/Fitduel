@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">FitDuel</string>
     <string name="login_with_facebook">Login with Facebook</string>
-    <string name="facebook_app_id">241626033080889</string>
-    <string name="fb_login_protocol_scheme">fb241626033080889</string>
+    <string name="facebook_app_id">Enter id here</string>
+    <string name="fb_login_protocol_scheme">Enter protocol scheme here</string>
     <string name="nav_home">Home</string>
     <string name="nav_wallet">Wallet</string>
     <string name="nav_profile">Profile</string>
